@@ -1,3 +1,3 @@
 export default function UpperMenu() {
-  return <div className="w-full h-20 bg-blue-800"></div>;
+  return <div className="w-full h-[60] bg-blue-400"></div>;
 }

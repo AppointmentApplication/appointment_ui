@@ -50,32 +50,38 @@ export default function Table() {
             <th className="text-left py-1 px-2 font-medium text-gray-200 ">
               <div className="flex items-center gap-2">
                 <input type="checkbox" />
-                FullName</div>
+                FullName
+              </div>
             </th>
             <th className="text-left py-1 px-2 font-medium text-gray-200">
               <div className="flex items-center gap-2">
                 <MdEmail />
-                Email </div>
+                Email{" "}
+              </div>
             </th>
             <th className="text-left py-1 px-2 font-medium text-gray-200">
               <div className="flex items-center gap-2">
                 <BsPerson />
-                Role </div>
+                Role{" "}
+              </div>
             </th>
             <th className="text-left py-1 px-2 font-medium text-gray-200">
               <div className="flex items-center gap-2">
                 <FaRegDotCircle />
-                Status</div>
+                Status
+              </div>
             </th>
             <th className="text-left py-1 px-2 font-medium text-gray-200">
               <div className="flex items-center gap-2">
                 <BsCalendarDate />
-                Joined Date </div>
+                Joined Date{" "}
+              </div>
             </th>
             <th className="text-left py-1 px-2 font-medium text-gray-200">
               <div className="flex items-center gap-2">
                 <BiSolidHandUp />
-                Actions </div>
+                Actions{" "}
+              </div>
             </th>
           </tr>
         </thead>
@@ -84,7 +90,9 @@ export default function Table() {
             <tr
               key={emp.id}
               className={
-                idx % 2 === 0 ? "bg-slate-200" : "bg-slate-100 hover:bg-slate-100"
+                idx % 2 === 0
+                  ? "bg-slate-200"
+                  : "bg-slate-100 hover:bg-slate-100"
               }
             >
               <td className="py-1 px-2 flex items-center gap-2">
