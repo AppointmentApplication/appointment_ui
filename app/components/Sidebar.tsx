@@ -10,7 +10,7 @@ export default function Sidebar() {
         <span className="font-bold text-lg text-black">Navbar</span>
       </div>
       <div className="flex-1 w-full p-4 flex flex-col items-center">
-        <Link href="/dashboard/appointments" className="flex items-center justify-center gap-2 mt-4 bg-blue-800 text-white px-6 py-3 rounded-sm cursor-pointer w-full">
+        <Link href="/dashboard/appointments/create" className="flex items-center justify-center gap-2 mt-4 bg-blue-800 text-white px-6 py-3 rounded-sm cursor-pointer w-full">
           <GoPlus size={24} />
           <span className="text-md">New Appointment</span>
         </Link>
