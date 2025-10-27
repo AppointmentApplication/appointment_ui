@@ -1,4 +1,4 @@
-import type { BoxType } from "../create/page";
+import type { BoxType } from "../hooks/useVerticalMovement";
 
 type BoxProps = {
   box: BoxType;

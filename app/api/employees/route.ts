@@ -8,6 +8,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const limit = Number(searchParams.get("limit"));
   const pageIndex = Number(searchParams.get("index")) - 1;
+  const pageCount = Math.ceil(Employees.length / limit);
 
   const start = pageIndex * limit;
   const end = start + limit;
@@ -15,7 +16,10 @@ export async function GET(request: Request) {
   const data = limit ? Employees.slice(start, end) : Employees;
 
   return NextResponse.json({
-    data,
+    data: {
+      employees: data,
+      pageCount
+    },
     message: "Success",
   });
 }

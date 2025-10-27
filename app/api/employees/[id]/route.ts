@@ -1,10 +1,17 @@
 import { Employees } from "@/app/data/employees";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-    const data = Employees.find((item) => item.id === Number(params.id));
+export async function GET(
+  request: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
 
-    if (data === undefined) return NextResponse.json({ message: "Not Found" });
+  const data = Employees.find((item) => item.id === Number(id));
 
-    return NextResponse.json({ data, message: "Success" });
+  if (!data) {
+    return NextResponse.json({ message: "Not Found" }, { status: 404 });
+  }
+
+  return NextResponse.json({ data, message: "Success" });
 }
