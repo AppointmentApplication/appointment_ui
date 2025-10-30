@@ -1,0 +1,46 @@
+{
+"columns": [
+{
+"key": "select",
+"label": "",
+"icon": "",
+"visible": true
+},
+{
+"key": "fullName",
+"label": "Full Name",
+"icon": "@react-icons/all-files/bs/BsPerson",
+"visible": true
+},
+{
+"key": "email",
+"label": "Email",
+"icon": "@react-icons/all-files/md/MdEmail",
+"visible": true
+},
+{
+"key": "role",
+"label": "Role",
+"icon": "@react-icons/all-files/bs/BsPerson",
+"visible": true
+},
+{
+"key": "status",
+"label": "Status",
+"icon": "@react-icons/all-files/fa/FaRegDotCircle",
+"visible": true
+},
+{
+"key": "joinedAt",
+"label": "Joined At",
+"icon": "@react-icons/all-files/bs/BsCalendarDate",
+"visible": true
+},
+{
+"key": "actions",
+"label": "Actions",
+"icon": "@react-icons/all-files/bi/BiSolidHandUp",
+"visible": true
+}
+]
+}
