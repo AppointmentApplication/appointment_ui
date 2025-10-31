@@ -35,15 +35,27 @@ export type Employee = {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
-  employmentStartDate: Date;
-  title: string;
-  workDays: string[];
-  workStart: string;
-  workEnd: string;
-  gender: string;
-  status: string;
+  phoneNumber?: string;
+  employmentStartDate: string | Date;
+  title?: string;
+  workDays?: string[];
+  workStart?: string;
+  workEnd?: string;
+  gender?: string;
+  status?: string;
 };
+
+type ConfigColumn = {
+  key: string;
+  label: string;
+  icon?: string;
+  visible?: boolean;
+};
+
+type TableConfig = { columns: ConfigColumn[] };
+
+const CONFIG_URL = "/tableConfig.json";
+const STORAGE_KEY = "table.config";
 
 export default function Table({ thead, tbody, loading }: TableProps) {
   return (
