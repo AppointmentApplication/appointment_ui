@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import Preview from "../components/preview";
-import PersonTag from "../components/person_tag";
-import Timeline from "../components/timeline";
-import VerticalBoxGroup from "../components/vertical_box_group";
+import Preview from "../components/Preview";
+import PersonTag from "../components/PersonTag";
+import Timeline from "../components/TimeLine";
+import VerticalBoxGroup from "../components/VerticalBoxGroup";
 import useVerticalMovement from "../hooks/useVerticalMovement";
 
 type Person = {

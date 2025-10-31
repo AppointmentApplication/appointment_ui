@@ -1,13 +1,16 @@
-import { ReactNode } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 type PopoverProps = {
-  children?: ReactNode;
+  children?: React.ReactNode;
   isOpened: boolean;
   onClose: () => void;
 };
 
-export default function Popover({ children, isOpened, onClose }: PopoverProps) {
+export default function Popover({
+  children,
+  isOpened,
+  onClose,
+}: PopoverProps) {
   if (!isOpened) return null;
 
   return (

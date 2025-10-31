@@ -1,5 +1,5 @@
 import { BoxType } from "../hooks/useVerticalMovement";
-import Box from "./box";
+import Box from "./Box";
 
 type VerticalBoxesProps = {
   boxes: BoxType[];

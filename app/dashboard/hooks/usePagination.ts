@@ -15,13 +15,15 @@ export default function usePagination<T>({
   const [pageIndex, setPageIndex] = useState(initialPageIndex);
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [pageCount, setPageCount] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [totalItemCount, setTotalItemCount] = useState(0);
 
   const BASE_API = "http://localhost:3000/api";
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+
       try {
         const url = `${BASE_API}/${target}?limit=${pageSize}&index=${pageIndex}`;
         const response = await fetch(url);
@@ -29,7 +31,9 @@ export default function usePagination<T>({
 
         const list = json.data[target] as T[];
         const count = json.data.pageCount as number;
+        const totalItem = json.data.totalItemCount as number;
 
+        setTotalItemCount(totalItem);
         setData(list);
         setPageCount(count);
       } finally {
@@ -52,6 +56,7 @@ export default function usePagination<T>({
     pageIndex,
     pageSize,
     loading,
+    totalItemCount,
     goToPage,
     changePageSize,
   };

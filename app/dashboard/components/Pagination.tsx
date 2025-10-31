@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 type PaginationProps = {
   pageCount: number;
   currentPage: number;
+  totalItemCount: number;
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
 };
@@ -10,6 +11,7 @@ type PaginationProps = {
 export default function Pagination({
   pageCount,
   currentPage,
+  totalItemCount,
   onPageChange,
   onPageSizeChange,
 }: PaginationProps) {
@@ -49,50 +51,60 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex items-center gap-2 mt-4">
-      {pageCount >= 1 && (
-        <div
-          className="w-[30px] h-[30px] bg-red-200 flex items-center justify-center cursor-pointer hover:bg-red-400"
-          onClick={handlePrev}
-        >
-          {prev}
-        </div>
-      )}
-      {pageCount >= 2 && (
-        <div
-          className="w-[30px] h-[30px] bg-red-200 flex items-center justify-center cursor-pointer hover:bg-red-400"
-          onClick={handleCurrent}
-        >
-          {current}
-        </div>
-      )}
-      {pageCount >= 3 && (
-        <div
-          className="w-[30px] h-[30px] bg-red-200 flex items-center justify-center cursor-pointer hover:bg-red-400"
-          onClick={handleNext}
-        >
-          {next}
-        </div>
-      )}
+    <div className="flex items-center gap-2 mt-4 justify-between">
+      <div className="text-sm text-neutral-500 mx-4">Showing: {(totalItemCount / pageCount) * currentPage} of {totalItemCount}</div>
+      <div className="flex items-center gap-2 ">
+        {pageCount >= 1 && (
+          <div
+            className={`w-[30px] h-[30px] border border-neutral-400 rounded-sm flex items-center justify-center cursor-pointer hover:bg-neutral-400 hover:text-white ${
+              currentPage === Number(prev) ? "bg-neutral-400 text-white" : ""
+            }`}
+            onClick={handlePrev}
+          >
+            {prev}
+          </div>
+        )}
+        {pageCount >= 2 && (
+          <div
+            className={`w-[30px] h-[30px] border border-neutral-400 rounded-sm flex items-center justify-center cursor-pointer hover:bg-neutral-400 hover:text-white ${
+              currentPage === Number(current) ? "bg-neutral-400 text-white" : ""
+            }`}
+            onClick={handleCurrent}
+          >
+            {current}
+          </div>
+        )}
+        {pageCount >= 3 && (
+          <div
+            className={`w-[30px] h-[30px] border border-neutral-400 rounded-sm flex items-center justify-center cursor-pointer hover:bg-neutral-400 hover:text-white ${
+              currentPage === Number(next) ? "bg-neutral-400 text-white" : ""
+            }`}
+            onClick={handleNext}
+          >
+            {next}
+          </div>
+        )}
+        {next < last - 1 && <div>...</div>}
+        {pageCount >= 4 && (
+          <div
+            className={`w-[30px] h-[30px] border border-neutral-400 rounded-sm flex items-center justify-center cursor-pointer hover:bg-neutral-400 hover:text-white ${
+              currentPage === last ? "bg-neutral-400 text-white" : ""
+            }`}
+            onClick={handleLast}
+          >
+            {last}
+          </div>
+        )}
 
-      {next < last - 1 && <div>...</div>}
-      {pageCount >= 4 && (
-        <div
-          className="w-[30px] h-[30px] bg-red-200 flex items-center justify-center cursor-pointer hover:bg-red-400"
-          onClick={handleLast}
+        <select
+          className="mx-4 p-2 bg-neutral-200 rounded-sm border-none outline-none"
+          onChange={(e) => onPageSizeChange(Number(e.target.value))}
         >
-          {last}
-        </div>
-      )}
-
-      <select
-        className="ml-4"
-        onChange={(e) => onPageSizeChange(Number(e.target.value))}
-      >
-        <option>5</option>
-        <option>10</option>
-        <option>15</option>
-      </select>
+          <option>5</option>
+          <option>10</option>
+          <option>15</option>
+        </select>
+      </div>
     </div>
   );
 }

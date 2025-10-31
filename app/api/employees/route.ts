@@ -18,7 +18,8 @@ export async function GET(request: Request) {
   return NextResponse.json({
     data: {
       employees: data,
-      pageCount
+      pageCount,
+      totalItemCount: Employees.length,
     },
     message: "Success",
   });

@@ -1,19 +1,33 @@
-import { MdEmail } from "@react-icons/all-files/md/MdEmail";
-import { BsPerson } from "@react-icons/all-files/bs/BsPerson";
-import { FaRegDotCircle } from "@react-icons/all-files/fa/FaRegDotCircle";
-import { BsFillPencilFill } from "react-icons/bs";
-import { BsFillTrashFill } from "react-icons/bs";
-import { BsCalendarDate } from "react-icons/bs";
-import { BsFillPersonCheckFill, BsFillPersonXFill } from "react-icons/bs";
-import { BiSolidHandUp } from "react-icons/bi";
-import { GrUser } from "react-icons/gr";
-import { GrUserFemale } from "react-icons/gr";
 import Spinner from "./Spinner";
 import TableItemNotFound from "./TableItemNotFound";
+import { CiSearch } from "react-icons/ci";
+import { CiFilter } from "react-icons/ci";
+
+/* example mock data
+{
+  thead: [
+    { id: 1, name: "fullName", content: <div><IoIconCircle/><span>Full Name</span></div> },
+    { id: 2, name: "email", content: <div><IoIconCircle/><span>Email</span></div> },
+    { id: 3, name: "role", content: <div><IoIconCircle/><span>Role</span></div> },
+    { id: 4, name: "status", content: <div><IoIconCircle/><span>Status</span></div> },
+    { id: 5, name: "joinedAt", content: <div><IoIconCircle/><span>Joined At</span></div> },
+    { id: 6, name: "actions", content: <div><IoIconCircle/><span>Actions</span></div> },
+  ],
+  tbody: [
+    { id: 1, fullName: <div>Ali Balun</div>, email: "alibalun666@gmail.com", role: "Uzman Doktor", status: <div><IonIconInactive/><span>InActive</span></div>, joinedAt: "2023-01-01", actions: <div><IonIconPencil/><IonIconTrash /></div> },
+    { id: 2, fullName: <div>Ali Balun</div>, email: "alibalun666@gmail.com", role: "Uzman Doktor", status: <div><IonIconInactive/><span>InActive</span></div>, joinedAt: "2023-01-01", actions: <div><IonIconPencil/><IonIconTrash /></div> },
+    { id: 3, fullName: <div>Ali Balun</div>, email: "alibalun666@gmail.com", role: "Uzman Doktor", status: <div><IonIconInactive/><span>InActive</span></div>, joinedAt: "2023-01-01", actions: <div><IonIconPencil/><IonIconTrash /></div> },
+    { id: 4, fullName: <div>Ali Balun</div>, email: "alibalun666@gmail.com", role: "Uzman Doktor", status: <div><IonIconInactive/><span>InActive</span></div>, joinedAt: "2023-01-01", actions: <div><IonIconPencil/><IonIconTrash /></div> },
+    { id: 5, fullName: <div>Ali Balun</div>, email: "alibalun666@gmail.com", role: "Uzman Doktor", status: <div><IonIconInactive/><span>InActive</span></div>, joinedAt: "2023-01-01", actions: <div><IonIconPencil/><IonIconTrash /></div> },
+    { id: 6, fullName: <div>Ali Balun</div>, email: "alibalun666@gmail.com", role: "Uzman Doktor", status: <div><IonIconInactive/><span>InActive</span></div>, joinedAt: "2023-01-01", actions: <div><IonIconPencil/><IonIconTrash /></div> },
+  ],
+}
+*/
 
 type TableProps = {
-  employees: Employee[];
   loading: boolean;
+  thead: { id: number; name: string; content: React.ReactNode }[];
+  tbody: { id: number; [key: string]: React.ReactNode }[];
 };
 
 export type Employee = {
@@ -31,113 +45,62 @@ export type Employee = {
   status: string;
 };
 
-export default function Table({ employees, loading }: TableProps) {
+export default function Table({ thead, tbody, loading }: TableProps) {
   return (
-    <div className="relative overflow-x-auto shadow-lg rounded-lg border border-gray-200 overflow-y-scroll h-[400px] bg-white">
-      {loading && <Spinner />}
-
-      {employees.length > 0 ? (
-        <table className="min-w-full">
-          <thead className="bg-slate-600">
-            <tr>
-              <th className="text-left py-1 px-2 font-medium text-gray-200 ">
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" />
-                  <span>FullName</span>
-                </div>
-              </th>
-              <th className="text-left py-1 px-2 font-medium text-gray-200">
-                <div className="flex items-center gap-2">
-                  <MdEmail />
-                  <span>Email</span>
-                </div>
-              </th>
-              <th className="text-left py-1 px-2 font-medium text-gray-200">
-                <div className="flex items-center gap-2">
-                  <BsPerson />
-                  <span>Role</span>
-                </div>
-              </th>
-              <th className="text-left py-1 px-2 font-medium text-gray-200">
-                <div className="flex items-center gap-2">
-                  <FaRegDotCircle />
-                  <span>Status</span>
-                </div>
-              </th>
-              <th className="text-left py-1 px-2 font-medium text-gray-200">
-                <div className="flex items-center gap-2">
-                  <BsCalendarDate />
-                  <span>Joined At</span>
-                </div>
-              </th>
-              <th className="text-left py-1 px-2 font-medium text-gray-200">
-                <div className="flex items-center gap-2">
-                  <BiSolidHandUp />
-                  <span>Actions</span>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.map((emp, idx) => (
-              <tr
-                key={emp.id}
-                className={
-                  idx % 2 === 0
-                    ? "bg-slate-200"
-                    : "bg-slate-100 hover:bg-slate-100"
-                }
-              >
-                <td className="py-1 px-2 flex items-center gap-2">
-                  <input type="checkbox" className="align-middle" />
-                  {emp.gender === "male" ? (
-                    <GrUser className="text-gray-700" />
-                  ) : (
-                    <GrUserFemale className="text-gray-700" />
-                  )}
-                  <span>
-                    {emp.firstName} {emp.lastName}
-                  </span>
-                </td>
-                <td className="py-1 px-2">{emp.email}</td>
-                <td className="py-1 px-2">{emp.title}</td>
-                <td className="py-1 px-2">
-                  <div className="flex items-center gap-2">
-                    {emp.status === "Active" ? (
-                      <>
-                        <BsFillPersonCheckFill className="text-green-600" />
-                        <span className="font-medium">Active</span>
-                      </>
-                    ) : (
-                      <>
-                        <BsFillPersonXFill className="text-red-600" />
-                        <span className="font-medium">Inactive</span>
-                      </>
-                    )}
-                  </div>
-                </td>
-                <td className="py-1 px-2">
-                  {emp.employmentStartDate.toString()}
-                </td>
-                <td className="py-1 px-2">
-                  <div className="flex items-center gap-4">
-                    <button className="text-gray-600 hover:text-blue-600 active:scale-90 transition-all duration-150 cursor-pointer">
-                      <BsFillPencilFill />
-                    </button>
-                    <button className="text-gray-600 hover:text-red-600 active:scale-90 transition-all duration-150 cursor-pointer">
-                      <BsFillTrashFill />
-                    </button>
-                  </div>
-                </td>
+    <>
+      <div className="flex m-4 justify-end">
+        <button className="w-[30px] h-[30px] flex items-center justify-center bg-gray-50 border border-gray-300 rounded-sm user-select-none cursor-pointer mx-1 hover:bg-gray-200 transition-all">
+          <CiSearch />
+        </button>
+        <button className="flex items-center justify-center w-[80px] p-2 h-[30px] bg-gray-50 border border-gray-300 rounded-sm gap-1 user-select-none cursor-pointer mx-1 hover:bg-gray-200 transition-all">
+          <CiFilter />
+          <span className="text-sm flex items-center">Filter</span>
+        </button>
+      </div>
+      <div className="relative overflow-x-auto rounded-sm border border-gray-100 shadow-sm bg-white m-4 max-h-[450px]">
+        {loading && <Spinner />}
+        {tbody.length > 0 ? (
+          <table className="min-w-full text-sm text-gray-700">
+            <thead className="sticky top-0 bg-gradient-to-b from-gray-50 to-gray-100 text-gray-600 border-b border-gray-200">
+              <tr>
+                {thead.map((col) => (
+                  <th
+                    key={col.id}
+                    className="text-left py-3 px-4 font-semibold uppercase tracking-wide text-[13px]"
+                  >
+                    {col.content}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        !loading && (
-          <TableItemNotFound message="No employees found" />
-        )
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {tbody.map((row, idx) => (
+                <tr
+                  key={row.id}
+                  className={`transition-all duration-150 ${
+                    idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } hover:bg-gray-100/70`}
+                >
+                  {thead.map((col) => (
+                    <td
+                      key={col.id}
+                      className="py-3 px-4 border-b border-gray-100"
+                    >
+                      {row[col.name] ?? "-"}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          !loading && (
+            <div className="p-8">
+              <TableItemNotFound message="No employees found" />
+            </div>
+          )
+        )}
+      </div>
+    </>
   );
 }
