@@ -43,14 +43,16 @@ export default function Page() {
     []
   );
 
-  // Tablo satırları
+  // local tbody: burada actions JSX'leri tanımlı, bunları arama sonuçlarına da kopyalayacağız
   const tbody = useMemo(
     () =>
-      customers.map((c) => ({
+      (customers || []).map((c) => ({
         id: c.id,
         fullName: (
           <div className="flex items-center gap-2">
-            <span>{c.firstName} {c.lastName}</span>
+            <span>
+              {c.firstName} {c.lastName}
+            </span>
           </div>
         ),
         email: c.email,
@@ -77,14 +79,18 @@ export default function Page() {
           <div className="flex items-center gap-4">
             <button
               className="text-gray-600 hover:text-blue-600 active:scale-90 transition-all duration-150 cursor-pointer"
-              onClick={() => setIsOpened(true)}
+              onClick={() => {
+                // aç popoveru ve istenen elemanı düzenle
+                setIsOpened(true);
+              }}
             >
               <BsFillPencilFill />
             </button>
             <button
               className="text-gray-600 hover:text-red-600 active:scale-90 transition-all duration-150 cursor-pointer"
               onClick={() =>
-                deleteRef.current?.open(c.id, "Delete this customer?", handleDelete)
+                // id tipi karışık olabileceği için Number ile çağırıyoruz
+                deleteRef.current?.open(Number(c.id), "Delete this customer?", handleDelete)
               }
             >
               <BsFillTrashFill />
@@ -99,6 +105,22 @@ export default function Page() {
     console.log("Customer deleted!");
   };
 
+  // Table'dan gelecek edit / delete fallback çağrılarını işleyin
+  function onEditHandler(id: number | string) {
+    // id tipi string|number olabilir; istersen Number(id) ile sayıya çevir
+    console.log("onEdit from Table:", id);
+    setIsOpened(true);
+  }
+
+  function onDeleteHandler(id: number | string) {
+    // DeletePopover.open number bekliyorsa Number(id)
+    const numericId = Number(id);
+    deleteRef.current?.open(numericId, "Delete this customer?", () => {
+      console.log("deleted from onDeleteHandler", id);
+      // gerçek silme işlemini burada çağır
+    });
+  }
+
   return (
     <div>
       <div className="text-center mt-8 text-2xl font-bold text-blue-800">
@@ -108,7 +130,19 @@ export default function Page() {
       <EditEmployeePopover isOpened={isOpened} setIsOpened={setIsOpened} />
 
       <div className="mt-6">
-        <Table thead={thead} tbody={tbody} loading={loading} />
+        <Table
+          thead={thead}
+          tbody={tbody}
+          loading={loading}
+          // dynamic props for reuse:
+          apiPath="/api/customers"
+          searchParamName="q"
+          idKeys={["id"]} // customers'de id alanı "id" olduğu için
+          columnsToCopyFromLocal={["actions", "membershipLevel"]}
+          onEdit={onEditHandler}
+          onDelete={onDeleteHandler}
+        />
+
         <Pagination
           pageCount={pageCount}
           currentPage={pageIndex}
